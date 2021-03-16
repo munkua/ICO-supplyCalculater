@@ -5,18 +5,26 @@
 # totalVestingList = [0 for i in range(totalVestingTermfire)]
 
 while(1) :
-    teamName = input('팀 이름은?')
-    teamTotalSupply = int(input('팀 총 공급량은?'))
-    teamTotalVestingTerm = int(input('팀 총 vesting 날은?'))
-    teamVestingStart = int(input('팀 베스팅 시작 날짜는?'))
-    teamVestingTerm = int(input('팀 베스팅 간격은?')) # 여기부터 구현 다시 시작
+    # 필수 내용
+    # 총공급량, 총 vesting 날, TGE 당시 물량, 베스팅 시작하는 날, 베스팅 간격
+    # 
+    teamWho = input('vesting 대상은?')
+    teamVestingDay = int(input('vetsing 날은?'))
 
-    teamVestingList = [0 for i in range(teamTotalVestingTerm)]
-    dailyVesting = teamTotalSupply / (teamTotalVestingTerm - teamVestingStart) 
-    teamVestingList[teamVestingStart] = dailyVesting
+    teamTGESupply = int(input('TGE 당시 공급량은?'))
 
-    for i in range(teamVestingStart, teamTotalVestingTerm) :
-        teamVestingList[i] = teamVestingList[i-1] + dailyVesting
+    teamVestingDay = int(input('TGE 이후 vesting 날은?'))
+    
+    teamVestingStart = int(input('TGE 후 언제부터 VESTING 시작하나요?'))
+    teamVestingTerm = int(input('팀 베스팅 간격은?'))
 
-    for i in range(len(teamVestingList)) :
-        print(i , ' = ', teamVestingList[i])
+    teamTotalVestingList = [0 for i in range(teamTotalVestingDay)]
+    teamVestingList = [0 for i in range(teamVestingDay)]
+
+    supplyWithoutTGE = teamTotalSupply - teamTGESupply # tge 제외한 물량
+    termVestingAmount = supplyWithoutTGE / (teamVestingDay // teamVestingTerm) # tge 제외한 리스트에 들어갈 물량들
+
+    for i in range(0, len(teamVestingList), teamVestingTerm):
+        teamVestingList[i] = termVestingAmount
+
+    print(teamTotalVestingList)
