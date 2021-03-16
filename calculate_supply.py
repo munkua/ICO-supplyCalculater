@@ -1,5 +1,6 @@
 # projectName = input('프로젝트 명은?')
 # totalSupply = int(input('총 공급량은?'))
+# totalVestingTerm = int(input('총 vesting 날은?'))
 
 # totalVestingList = [0 for i in range(totalVestingTermfire)]
 
